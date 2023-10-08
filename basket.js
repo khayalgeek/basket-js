@@ -25,14 +25,36 @@ class Basket {
         return basketSession ? JSON.parse(basketSession) : [];
     }
     async loadBasketItem() {
-        const basketItemContainer = document.getElementById('basket-item-container');
+        const basketItemContainer = document.getElementById('basket-products');
         const basketItems = await this.loadBasketFromLocalStorage();
-        basketItems.forEach*(item=>{
-            let html ="";
+        basketItems.forEach(item => {
+            let html = "";
             html =
+                `
+                <div class="col-sm-11 m-2">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4 d-flex justify-content-center align-items-center p-2">
+                                <img src="${item.image}"
+                                    class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">${item.title}</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a
+                                        natural lead-in to additional content. This content is a little bit longer.
+                                    </p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins
+                                            ago</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `
-            `
+            basketItemContainer.innerHTML += html;
         })
+
         console.log(basketItems);
     }
 
@@ -40,7 +62,15 @@ class Basket {
         const basketCount = document.getElementById('basket-count');
         basketCount.innerText = count;
     }
-
+    formatDate(date) {
+        const year = date.getFullYear().toString().slice(-2); 
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const day = String(date.getDate()).padStart(2, '0'); 
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0'); 
+        
+        return `${day}.${month}.${year} ${hours}:${minutes}`;
+    }
     async addToBasket(productId) {
         const basketSession = await this.loadBasketFromLocalStorage();
         const isProductInBasket = basketSession.some((item) => item.id === productId);
@@ -52,6 +82,7 @@ class Basket {
                 const newProduct = {
                     ...product,
                     count: 1,
+                    date: this.formatDate(new Date())
                 };
 
                 basketSession.push(newProduct);
