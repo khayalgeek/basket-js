@@ -24,6 +24,17 @@ class Basket {
         const basketSession = await localStorage.getItem("basket");
         return basketSession ? JSON.parse(basketSession) : [];
     }
+    async loadBasketItem() {
+        const basketItemContainer = document.getElementById('basket-item-container');
+        const basketItems = await this.loadBasketFromLocalStorage();
+        basketItems.forEach*(item=>{
+            let html ="";
+            html =
+            `
+            `
+        })
+        console.log(basketItems);
+    }
 
     updateBasketCount(count) {
         const basketCount = document.getElementById('basket-count');
@@ -48,7 +59,7 @@ class Basket {
                 this.updateBasketCount(basketSession.length);
                 return;
             }
-           
+
         }
         alert(Basket.HAVE_PRODUCT_MESSAGE);
     }
@@ -88,7 +99,7 @@ const productsData = [
         "category": "men's clothing",
         "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     },
-    
+
 ];
 
 const products = productsData.map((data) => new Product(data.id, data.title, data.price, data.category, data.image));
@@ -98,6 +109,7 @@ const basket = new Basket();
 
 // Sepet sayısını yükle
 basket.loadBasketCount();
+basket.loadBasketItem();
 
 // Ürünleri görüntüle
 const row = document.querySelector('.products');
@@ -106,7 +118,7 @@ products.forEach((product) => {
     let html = `
         <div class="col-sm-3 mt-5">
             <div class="card" style="width: 18rem;">
-                <img src="${product.image}" class="card-img-top" alt="...">
+                <img src="${product.image}" class="card-img-top card-image" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${product.title}</h5>
                 </div>
