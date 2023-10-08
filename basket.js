@@ -41,11 +41,9 @@ class Basket {
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">${item.title}</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a
-                                        natural lead-in to additional content. This content is a little bit longer.
-                                    </p>
-                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins
-                                            ago</small></p>
+                                    <p class="card-text">Qiymət: ${item.price} AZN</p>
+                                    <p class="card-text">Kateqoriya: ${item.category}</p>
+                                    <p class="card-text">Əlavə olunub: <small class="text-body-secondary">${item.date}</small></p>
                                 </div>
                             </div>
                         </div>
@@ -106,28 +104,28 @@ const productsData = [
         "id": 1,
         "title": "Fits 15 Laptops",
         "price": 109.95,
-        "category": "men's clothing",
+        "category": "Men's clothing",
         "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
     },
     {
         "id": 2,
         "title": "Slim Fit T-Shirts ",
         "price": 22.3,
-        "category": "men's clothing",
+        "category": "Men's clothing",
         "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
     },
     {
         "id": 3,
         "title": "Mens Cotton Jacket",
         "price": 55.99,
-        "category": "men's clothing",
+        "category": "Men's clothing",
         "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
     },
     {
         "id": 4,
         "title": "Mens Casual Slim Fit",
         "price": 15.99,
-        "category": "men's clothing",
+        "category": "Men's clothing",
         "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     },
 
@@ -135,14 +133,11 @@ const productsData = [
 
 const products = productsData.map((data) => new Product(data.id, data.title, data.price, data.category, data.image));
 
-// Sepeti başlatın
 const basket = new Basket();
 
-// Sepet sayısını yükle
 basket.loadBasketCount();
 basket.loadBasketItem();
 
-// Ürünleri görüntüle
 const row = document.querySelector('.products');
 
 products.forEach((product) => {
@@ -166,7 +161,6 @@ products.forEach((product) => {
     row.innerHTML += html;
 });
 
-// Sepete ürün ekleme işlemini dinle
 const addBtn = document.querySelectorAll('.card-link');
 
 addBtn.forEach((btn) => {
