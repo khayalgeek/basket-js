@@ -34,7 +34,6 @@ class Basket {
         if (basketItems.length > 0) {
 
             await basketItems.forEach(item => {
-
                 html =
                     `
                             <div class="col-sm-11 m-2 product-container">
